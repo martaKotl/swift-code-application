@@ -36,8 +36,8 @@ Prerequisites:
   The UI will be available at: http://localhost:3000
 
  API Endpoints:
-  GET    	/v1/swift-codes/{swiftCode}	            Retrieve Swift Code by swiftCode
-  GET    	/v1/swift-codes/country/{countryISO2}	  Get Swift Codes by countryISO2
-  POST  	/v1/swift-codes                        	Add a new Swift Code
-  DELETE	/v1/swift-codes/{swiftCode}            	Delete Swift Code by swiftCode
-  POST	  /v1/swift-codes/upload	                Import Swift Codes from Excel
+  1. GET    	/v1/swift-codes/{swiftCode}	            Retrieve Swift Code by swiftCode
+  2. GET    	/v1/swift-codes/country/{countryISO2}	  Get Swift Codes by countryISO2
+  3. POST  	/v1/swift-codes                        	Add a new Swift Code
+  4. DELETE	/v1/swift-codes/{swiftCode}            	Delete Swift Code by swiftCode
+  5. POST	  /v1/swift-codes/upload	                Import Swift Codes from Excel
