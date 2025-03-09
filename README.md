@@ -27,12 +27,14 @@ Prerequisites:
      -cd swift-code-api
   2. Build the project: ./gradlew build
   3. Run the Spring Boot application: ./gradlew bootRun
+     
   The API will be available at: http://localhost:8080/v1/swift-codes
 
  Frontend Setup (React):
  1. Install dependencies: npm install
  2. Navigate to the frontend directory: cd .\swift-code-frontend\
  3. Start the React application: npm start
+    
   The UI will be available at: http://localhost:3000
 
  API Endpoints:
