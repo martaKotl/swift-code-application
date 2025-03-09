@@ -52,6 +52,16 @@ public class SwiftCodeService {
             }
         }
 
+        if (swiftCode.getSwiftCode().endsWith("XXX") && swiftCode.getIsHeadquarter().equals(false)) {
+            throw  new IllegalArgumentException("Swift Code ends wit XXX is headquarter." +
+                    " Change isHeadquarter to true or change Swift Code.");
+        }
+
+        if (!swiftCode.getSwiftCode().endsWith("XXX") && swiftCode.getIsHeadquarter().equals(true)) {
+            throw  new IllegalArgumentException("Swift Code doesn't end wit XXX." +
+                    " Change isHeadquarter to false or change Swift Code.");
+        }
+
         repository.save(swiftCode);
     }
 

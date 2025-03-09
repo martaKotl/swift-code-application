@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SwiftCodeServiceTest {
@@ -50,8 +50,102 @@ class SwiftCodeServiceTest {
 
         swiftCodeService.addSwiftCode(newSwift);
 
-        Optional<SwiftCode> found = repository.findById("NEWPLPWXXX");
+        Optional<SwiftCode> found = repository.findById("NEWPLPLXXX");
         assertTrue(found.isPresent());
+        assertEquals("NEWPLPLXXX", found.get().getSwiftCode());
         assertEquals("New Bank", found.get().getBankName());
+        assertEquals("New Address", found.get().getAddress());
+        assertEquals("Poland", found.get().getCountryName());
+        assertEquals(true, found.get().getIsHeadquarter());
+    }
+
+    @Test
+    void shouldAddBranchSwiftCode() {
+        SwiftCode newSwift = new SwiftCode();
+        newSwift.setSwiftCode("NEWBRANCHX");
+        newSwift.setCountryISO2("PL");
+        newSwift.setBankName("New Branch Bank");
+        newSwift.setAddress("New Branch Address");
+        newSwift.setCountryName("Poland");
+        newSwift.setIsHeadquarter(false);
+
+        swiftCodeService.addSwiftCode(newSwift);
+
+        Optional<SwiftCode> found = repository.findById("NEWBRANCHX");
+        assertTrue(found.isPresent());
+        assertEquals("NEWBRANCHX", found.get().getSwiftCode());
+        assertEquals("New Branch Bank", found.get().getBankName());
+        assertEquals("New Branch Address", found.get().getAddress());
+        assertEquals("Poland", found.get().getCountryName());
+        assertEquals(false, found.get().getIsHeadquarter());
+    }
+
+    @Test
+    void shouldCheckIfBranchSwiftCode() {
+        SwiftCode newSwift = new SwiftCode();
+        newSwift.setSwiftCode("NEWBRANCHX");
+        newSwift.setCountryISO2("PL");
+        newSwift.setBankName("New Branch Bank");
+        newSwift.setAddress("New Branch Address");
+        newSwift.setCountryName("Poland");
+        newSwift.setIsHeadquarter(true);
+
+        assertThrows(RuntimeException.class, () -> swiftCodeService.addSwiftCode(newSwift));
+
+        Optional<SwiftCode> found = repository.findById("NEWBRANCHX");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void shouldCheckIfHeadquarterSwiftCode() {
+        SwiftCode newSwift = new SwiftCode();
+        newSwift.setSwiftCode("NEWPLPLXXX");
+        newSwift.setCountryISO2("PL");
+        newSwift.setBankName("New Bank");
+        newSwift.setAddress("New Address");
+        newSwift.setCountryName("Poland");
+        newSwift.setIsHeadquarter(false);
+
+        assertThrows(RuntimeException.class, () -> swiftCodeService.addSwiftCode(newSwift));
+
+        Optional<SwiftCode> found = repository.findById("NEWPLPLXXX");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void shouldDeleteSwiftCode() {
+        swiftCodeService.deleteSwiftCode("TESTPLPLXXX");
+
+        Optional<SwiftCode> found = repository.findById("TESTPLPLXXX");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void shouldNotDeleteSwiftCode() {
+        assertThrows(RuntimeException.class, () -> swiftCodeService.deleteSwiftCode("TESTPLPLLLL"));
+
+        Optional<SwiftCode> found = repository.findById("TESTPLPLLLL");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void shouldGetSwiftCodeById() {
+        Optional<SwiftCode> found = repository.findById("TESTPLPLXXX");
+
+        assertTrue(found.isPresent());
+        assertEquals("TESTPLPLXXX", found.get().getSwiftCode());
+        assertEquals("Test Bank", found.get().getBankName());
+        assertEquals("Test Address", found.get().getAddress());
+        assertEquals("Poland", found.get().getCountryName());
+        assertEquals(true, found.get().getIsHeadquarter());
+    }
+
+    @Test
+    void shouldGetSwiftCodeByCountry() {
+        List<SwiftCode> result = swiftCodeService.getSwiftCodeByCountry("PL");
+
+        assertEquals(1, result.size());
+        assertEquals("Poland", result.getFirst().getCountryName());
+
     }
 }
