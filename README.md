@@ -10,10 +10,10 @@ Features:
 - Unit tests to ensure system reliability.
 
 Prerequisites:
--Java 17+
--Gradle
--PostgreSQL
--Node.js 18+ (for frontend)
+- Java 17+
+- Gradle
+- PostgreSQL
+- Node.js 18+ (for frontend)
 
  Database Configuration:
  1. Create a PostgreSQL database:  CREATE DATABASE swiftdb;
@@ -23,8 +23,8 @@ Prerequisites:
 
   Backend Setup (Spring Boot + Gradle):
   1. Clone the repository:
-     -git clone https://github.com/your-username/swift-code-api.git
-     -cd swift-code-api
+     - git clone https://github.com/your-username/swift-code-api.git
+     - cd swift-code-api
   2. Build the project: ./gradlew build
   3. Run the Spring Boot application: ./gradlew bootRun
      
